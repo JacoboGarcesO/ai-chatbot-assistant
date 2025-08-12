@@ -42,7 +42,7 @@ export const Sidebar = () => {
   return (
     <aside className={styles.sidebar} role="complementary" aria-label="Navegación principal">
       <header className={styles.sidebarHeader}>
-        <img className={styles.sidebarLogo} src="/logo.svg" alt="Logo de GEMS Innovations" />
+        <img className={styles.sidebarLogo} src="./logo.svg" alt="Logo de GEMS Innovations" />
         <div>
           <h1 className={styles.sidebarTitle}>GEMS Innovations</h1>
           <p className={styles.sidebarSubtitle}>Technology</p>
