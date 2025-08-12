@@ -1,0 +1,127 @@
+.botToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.botToggleBar {
+  gap: 0.5rem;
+}
+
+.botToggleIcon {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+.botToggleIconActive {
+  color: rgb(34 197 94);
+}
+
+.botToggleIconInactive {
+  color: rgb(156 163 175);
+}
+
+.botToggleLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(55 65 81);
+}
+
+.botToggleButton {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  border-radius: 0.375rem;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.botToggleButtonActive {
+  background-color: rgb(220 252 231);
+  color: rgb(22 101 52);
+}
+
+.botToggleButtonActive:hover {
+  background-color: rgb(187 247 208);
+}
+
+.botToggleButtonInactive {
+  background-color: rgb(243 244 246);
+  color: rgb(31 41 55);
+}
+
+.botToggleButtonInactive:hover {
+  background-color: rgb(229 231 235);
+}
+
+.botToggleChat {
+  gap: 0.5rem;
+}
+
+.botToggleChatLabel {
+  font-size: 0.875rem;
+  color: rgb(75 85 99);
+}
+
+.botToggleChatButton {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+  cursor: pointer;
+}
+
+.botToggleChatButton:hover {
+  transform: scale(1.1);
+}
+
+.botToggleChatIconActive {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: rgb(34 197 94);
+}
+
+.botToggleChatIconInactive {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: rgb(156 163 175);
+}
+
+.botToggleChatIconInactive:hover {
+  color: rgb(75 85 99);
+}
+
+@media (prefers-color-scheme: dark) {
+  .botToggleLabel {
+    color: rgb(209 213 219);
+  }
+
+  .botToggleButtonActive {
+    background-color: rgb(22 101 52);
+    color: rgb(220 252 231);
+  }
+
+  .botToggleButtonActive:hover {
+    background-color: rgb(21 128 61);
+  }
+
+  .botToggleButtonInactive {
+    background-color: rgb(55 65 81);
+    color: rgb(209 213 219);
+  }
+
+  .botToggleButtonInactive:hover {
+    background-color: rgb(75 85 99);
+  }
+
+  .botToggleChatLabel {
+    color: rgb(156 163 175);
+  }
+
+  .botToggleChatIconInactive {
+    color: rgb(156 163 175);
+  }
+
+  .botToggleChatIconInactive:hover {
+    color: rgb(209 213 219);
+  }
+}

@@ -127,3 +127,4 @@ feature/
 - CSS Modules con metodología BEM adaptada para camelCase
 - En los componentes no debe haber lógica, la lógica se debe almacenar en los custom hooks. Los componentes solo invocan funciones y muestran información.
 - No comentar el código realizado.
+- No exportar los componentes o hooks en archivos index.ts.

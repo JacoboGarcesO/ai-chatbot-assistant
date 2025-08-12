@@ -9,7 +9,9 @@ export const Layout = () => {
       <Sidebar />
       <main className={styles.layoutMain}>
         <Header />
-        <Outlet />
+        <div className={`${styles.layoutContent} gems-scrollbar`}>
+          <Outlet />
+        </div>
       </main>
     </div>
   );

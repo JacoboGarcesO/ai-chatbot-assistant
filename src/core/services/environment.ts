@@ -1,5 +1,5 @@
 export const environment = {
-  apiUrl: import.meta.env.API_URL
+  apiUrl: import.meta.env.VITE_API_URL
 }
 
 export const endpoints = {
@@ -8,13 +8,23 @@ export const endpoints = {
     login: `${environment.apiUrl}/auth/login`,
   },
   conversations: {
-    conversations: `${environment.apiUrl}/api/conversations`,
-    sendMessage: `${environment.apiUrl}/api/send-message`,
+    list: `${environment.apiUrl}/api/conversations`,
+    get: (id: string) => `${environment.apiUrl}/api/conversations/${id}`,
+    search: (query: string) => `${environment.apiUrl}/api/conversations/search/${query}`,
+    markAsRead: (id: string) => `${environment.apiUrl}/api/conversations/${id}/read`,
+  },
+  messages: {
+    get: (customerId: string) => `${environment.apiUrl}/api/messages/${customerId}`,
+    send: (customerId: string) => `${environment.apiUrl}/api/messages/${customerId}`,
+    sendAI: (customerId: string) => `${environment.apiUrl}/api/messages/${customerId}/ai`,
+  },
+  bot: {
+    status: `${environment.apiUrl}/api/bot/status`,
+    toggle: `${environment.apiUrl}/api/bot/toggle`,
   },
   health: `${environment.apiUrl}/api/health`,
-  botStatus: `${environment.apiUrl}/api/auto-response/status`,
-  botToggle: `${environment.apiUrl}/api/auto-response/toggle`,
-  sendAiMessage: `${environment.apiUrl}/api/send-ai-message`,
-  askAi: `${environment.apiUrl}/api/ask-ai`,
   stats: `${environment.apiUrl}/api/stats`,
+  ai: {
+    ask: `${environment.apiUrl}/api/ai/ask`,
+  },
 };

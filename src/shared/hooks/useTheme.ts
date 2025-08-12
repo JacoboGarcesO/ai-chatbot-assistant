@@ -14,18 +14,10 @@ export const useTheme = () => {
     dispatch({ type: 'SET_THEME', payload: { isDarkMode } });
   };
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-    if (savedTheme !== null) {
-      const isDarkMode = savedTheme === 'dark';
-      if (isDarkMode !== state.isDarkMode) {
-        setTheme(isDarkMode);
-      }
-    }
-  }, []);
-
+  // Aplicar el tema al documento HTML
   useEffect(() => {
     const root = document.documentElement;
+
     if (state.isDarkMode) {
       root.classList.add('dark');
       root.classList.remove('light');
@@ -36,6 +28,29 @@ export const useTheme = () => {
 
     localStorage.setItem(THEME_STORAGE_KEY, state.isDarkMode ? 'dark' : 'light');
   }, [state.isDarkMode]);
+
+  // Cargar el tema guardado al inicializar
+  useEffect(() => {
+    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    if (savedTheme !== null) {
+      const isDarkMode = savedTheme === 'dark';
+      if (isDarkMode !== state.isDarkMode) {
+        setTheme(isDarkMode);
+      }
+    }
+  }, []);
+
+  // Aplicar el estado inicial inmediatamente al montar
+  useEffect(() => {
+    const root = document.documentElement;
+    if (state.isDarkMode) {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    } else {
+      root.classList.add('light');
+      root.classList.remove('dark');
+    }
+  }, []);
 
   return {
     isDarkMode: state.isDarkMode,

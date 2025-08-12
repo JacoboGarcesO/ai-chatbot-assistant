@@ -1,13 +1,18 @@
 import { createContext, useReducer, useContext } from 'react'
 import { userCases } from './auth/reducer';
 import { themeCases, themeInitialState } from './theme/reducer';
+import { conversationsCases, conversationsInitialState } from './conversations/reducer';
+import { messagesCases, messagesInitialState } from './messages/reducer';
+import { botCases, botInitialState } from './bot/reducer';
 import type { Action, State } from '../types/State'
 import { userInitialState } from './auth/reducer';
 
-
 export const initialState: State = {
   ...userInitialState,
-  ...themeInitialState
+  ...themeInitialState,
+  ...conversationsInitialState,
+  ...messagesInitialState,
+  ...botInitialState
 };
 
 const AppContext = createContext<{ state: State; dispatch: (action: Action<any>) => void }>({ state: initialState, dispatch: () => { } });
@@ -16,6 +21,9 @@ export const reducer = (state: State, action: Action<any>) => {
   const cases: Record<string, (state: any, payload: any) => any> = {
     ...userCases,
     ...themeCases,
+    ...conversationsCases,
+    ...messagesCases,
+    ...botCases,
   };
 
   return cases[action.type](state, action.payload) || state;
