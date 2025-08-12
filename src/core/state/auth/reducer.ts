@@ -1,6 +1,6 @@
 import { userActions } from './actions'
 import type { UserState } from '../../types/State'
-import { UserRole, type User } from '../../types/User'
+import type { User } from '../../types/User'
 
 export const userInitialState: UserState = {
   currentUser: null

@@ -7,14 +7,6 @@ export default defineConfig({
   base: process.env.NODE_ENV === 'production' ? '/ai-chat-sales-assitant/' : '/',
   build: {
     outDir: 'dist',
-    sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          firebase: ['firebase']
-        }
-      }
-    }
+    sourcemap: false
   }
 })

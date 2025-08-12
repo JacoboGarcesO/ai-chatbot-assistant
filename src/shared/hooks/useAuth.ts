@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from 'react';
 import { useAppContext } from '../../core/state/AppContext';
 import { firebaseService } from '../../core/services/firebase.service';
 import { authSuccess, logout as logoutAction } from '../../core/state/auth/actions';
-import type { User } from '../../core/types/User';
 
 export const useAuth = () => {
   const { state, dispatch } = useAppContext();
@@ -14,7 +13,7 @@ export const useAuth = () => {
       setLoading(true);
       setError(null);
       const user = await firebaseService.signInWithEmail(email, password);
-      dispatch(authSuccess({ payload: user }));
+      dispatch(authSuccess(user));
       return user;
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error al iniciar sesión';
@@ -30,7 +29,7 @@ export const useAuth = () => {
       setLoading(true);
       setError(null);
       const user = await firebaseService.signInWithGoogle();
-      dispatch(authSuccess({ payload: user }));
+      dispatch(authSuccess(user));
       return user;
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error al iniciar sesión con Google';
@@ -63,7 +62,7 @@ export const useAuth = () => {
   useEffect(() => {
     const unsubscribe = firebaseService.onAuthStateChanged((user) => {
       if (user) {
-        dispatch(authSuccess({ payload: user }));
+        dispatch(authSuccess(user));
       } else {
         dispatch(logoutAction());
       }

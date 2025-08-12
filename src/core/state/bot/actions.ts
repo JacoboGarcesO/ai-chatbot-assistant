@@ -10,32 +10,32 @@ export const botActions = {
   CLEAR_ERROR: 'CLEAR_ERROR'
 };
 
-export const setBotEnabled = (enabled: boolean) => ({
+export const setBotEnabled = (enabled: boolean): Action<boolean> => ({
   type: botActions.SET_BOT_ENABLED,
   payload: enabled
 });
 
-export const setLoading = (loading: boolean) => ({
+export const setLoading = (loading: boolean): Action<boolean> => ({
   type: botActions.SET_LOADING,
   payload: loading
 });
 
-export const setError = (error: string | null) => ({
+export const setError = (error: string | null): Action<string | null> => ({
   type: botActions.SET_ERROR,
   payload: error
 });
 
-export const setHealthStatus = (healthStatus: 'healthy' | 'error' | 'loading') => ({
+export const setHealthStatus = (healthStatus: 'healthy' | 'error' | 'loading'): Action<'healthy' | 'error' | 'loading'> => ({
   type: botActions.SET_HEALTH_STATUS,
   payload: healthStatus
 });
 
-export const setStats = (stats: BotStats | undefined) => ({
+export const setStats = (stats: BotStats | undefined): Action<BotStats | undefined> => ({
   type: botActions.SET_STATS,
   payload: stats
 });
 
-export const clearError = () => ({
+export const clearError = (): Action<null> => ({
   type: botActions.CLEAR_ERROR,
   payload: null
 }); 

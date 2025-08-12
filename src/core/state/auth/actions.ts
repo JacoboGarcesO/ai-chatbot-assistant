@@ -7,20 +7,21 @@ export const userActions = {
   LOGOUT: 'LOGOUT'
 }
 
-export const registerSuccess = ({ payload }: Action<User>) => {
+export const registerSuccess = (payload: User): Action<User> => {
   return {
     type: userActions.REGISTER_USER_SUCCESS,
     payload
   }
 }
 
-export const logout = () => {
+export const logout = (): Action<null> => {
   return {
-    type: userActions.LOGOUT
+    type: userActions.LOGOUT,
+    payload: null
   }
 }
 
-export const authSuccess = ({ payload }: Action<User>) => {
+export const authSuccess = (payload: User): Action<User> => {
   return {
     type: userActions.AUTHENTICATION_SUCCESS,
     payload

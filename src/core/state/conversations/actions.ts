@@ -14,52 +14,52 @@ export const conversationsActions = {
   CLEAR_ERROR: 'CLEAR_ERROR'
 };
 
-export const setConversations = (conversations: Conversation[]) => ({
+export const setConversations = (conversations: Conversation[]): Action<Conversation[]> => ({
   type: conversationsActions.SET_CONVERSATIONS,
   payload: conversations
 });
 
-export const setLoading = (loading: boolean) => ({
+export const setLoading = (loading: boolean): Action<boolean> => ({
   type: conversationsActions.SET_LOADING,
   payload: loading
 });
 
-export const setError = (error: string | null) => ({
+export const setError = (error: string | null): Action<string | null> => ({
   type: conversationsActions.SET_ERROR,
   payload: error
 });
 
-export const setSelectedConversation = (conversationId: string | null) => ({
+export const setSelectedConversation = (conversationId: string | null): Action<string | null> => ({
   type: conversationsActions.SET_SELECTED_CONVERSATION,
   payload: conversationId
 });
 
-export const setSearchTerm = (searchTerm: string) => ({
+export const setSearchTerm = (searchTerm: string): Action<string> => ({
   type: conversationsActions.SET_SEARCH_TERM,
   payload: searchTerm
 });
 
-export const setStatusFilter = (statusFilter: string) => ({
+export const setStatusFilter = (statusFilter: string): Action<string> => ({
   type: conversationsActions.SET_STATUS_FILTER,
   payload: statusFilter
 });
 
-export const addConversation = (conversation: Conversation) => ({
+export const addConversation = (conversation: Conversation): Action<Conversation> => ({
   type: conversationsActions.ADD_CONVERSATION,
   payload: conversation
 });
 
-export const updateConversation = (conversation: Conversation) => ({
+export const updateConversation = (conversation: Conversation): Action<Conversation> => ({
   type: conversationsActions.UPDATE_CONVERSATION,
   payload: conversation
 });
 
-export const removeConversation = (conversationId: string) => ({
+export const removeConversation = (conversationId: string): Action<string> => ({
   type: conversationsActions.REMOVE_CONVERSATION,
   payload: conversationId
 });
 
-export const clearError = () => ({
+export const clearError = (): Action<null> => ({
   type: conversationsActions.CLEAR_ERROR,
   payload: null
 }); 

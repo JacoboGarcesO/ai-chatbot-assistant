@@ -12,42 +12,42 @@ export const messagesActions = {
   CLEAR_ERROR: 'CLEAR_ERROR'
 };
 
-export const setMessages = (messages: Message[]) => ({
+export const setMessages = (messages: Message[]): Action<Message[]> => ({
   type: messagesActions.SET_MESSAGES,
   payload: messages
 });
 
-export const setLoading = (loading: boolean) => ({
+export const setLoading = (loading: boolean): Action<boolean> => ({
   type: messagesActions.SET_LOADING,
   payload: loading
 });
 
-export const setError = (error: string | null) => ({
+export const setError = (error: string | null): Action<string | null> => ({
   type: messagesActions.SET_ERROR,
   payload: error
 });
 
-export const setCurrentCustomerId = (customerId: string | null) => ({
+export const setCurrentCustomerId = (customerId: string | null): Action<string | null> => ({
   type: messagesActions.SET_CURRENT_CUSTOMER_ID,
   payload: customerId
 });
 
-export const addMessage = (message: Message) => ({
+export const addMessage = (message: Message): Action<Message> => ({
   type: messagesActions.ADD_MESSAGE,
   payload: message
 });
 
-export const updateMessage = (message: Message) => ({
+export const updateMessage = (message: Message): Action<Message> => ({
   type: messagesActions.UPDATE_MESSAGE,
   payload: message
 });
 
-export const clearMessages = () => ({
+export const clearMessages = (): Action<null> => ({
   type: messagesActions.CLEAR_MESSAGES,
   payload: null
 });
 
-export const clearError = () => ({
+export const clearError = (): Action<null> => ({
   type: messagesActions.CLEAR_ERROR,
   payload: null
 }); 
