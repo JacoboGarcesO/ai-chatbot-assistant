@@ -1,5 +1,11 @@
+const isProduction = import.meta.env.PROD;
+const isDevelopment = import.meta.env.DEV;
+
 export const environment = {
-  apiUrl: import.meta.env.VITE_API_URL
+  apiUrl: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
+  isProduction,
+  isDevelopment,
+  baseUrl: isProduction ? '/ai-chat-sales-assitant' : ''
 }
 
 export const endpoints = {

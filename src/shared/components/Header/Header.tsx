@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { LogOut, User } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import styles from './Header.module.css';
 import { useAppContext } from '../../../core/state/AppContext';
 import { useTheme } from '../../hooks/useTheme';

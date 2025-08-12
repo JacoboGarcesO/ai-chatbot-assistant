@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { publicRoutes } from './public/routes';
 import { privateRoutes } from './private/routes';
 import { AppProvider } from './core/state/AppContext';
@@ -23,7 +23,7 @@ const applyThemeImmediately = () => {
 // Aplicar tema antes de renderizar
 applyThemeImmediately();
 
-const routes = createBrowserRouter([...publicRoutes, ...privateRoutes]);
+const routes = createHashRouter([...publicRoutes, ...privateRoutes]);
 
 createRoot(document.getElementById('root')!)
   .render(
