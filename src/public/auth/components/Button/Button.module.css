@@ -1,0 +1,97 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  font-family: inherit;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.button:focus {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Variantes */
+.buttonPrimary {
+  background-color: var(--brand-primary);
+  color: white;
+}
+
+.buttonPrimary:hover:not(:disabled) {
+  background-color: var(--brand-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.buttonSecondary {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-primary);
+}
+
+.buttonSecondary:hover:not(:disabled) {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-secondary);
+}
+
+.buttonOutline {
+  background-color: transparent;
+  color: var(--brand-primary);
+  border: 2px solid var(--brand-primary);
+}
+
+.buttonOutline:hover:not(:disabled) {
+  background-color: var(--brand-primary);
+  color: white;
+}
+
+.buttonGhost {
+  background-color: transparent;
+  color: var(--text-secondary);
+}
+
+.buttonGhost:hover:not(:disabled) {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* Tamaños */
+.buttonSm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  min-height: 2.25rem;
+}
+
+.buttonMd {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  min-height: 2.75rem;
+}
+
+.buttonLg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  min-height: 3.25rem;
+}
+
+/* Modificadores */
+.buttonFullWidth {
+  width: 100%;
+}
+
+.buttonDisabled {
+  pointer-events: none;
+}

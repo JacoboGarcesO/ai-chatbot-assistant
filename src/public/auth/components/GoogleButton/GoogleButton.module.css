@@ -1,0 +1,16 @@
+.googleButton {
+  border-color: var(--border-primary-dark) !important;
+  color: var(--text-primary-dark) !important;
+  background-color: var(--bg-primary-dark) !important;
+  font-weight: 500;
+}
+
+.googleButton:hover:not(:disabled) {
+  background-color: var(--bg-secondary-dark) !important;
+  border-color: var(--border-secondary-dark) !important;
+  color: var(--text-primary-dark) !important;
+}
+
+.googleIcon {
+  flex-shrink: 0;
+}
