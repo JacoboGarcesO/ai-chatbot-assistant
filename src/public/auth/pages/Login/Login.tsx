@@ -38,7 +38,7 @@ export const Login = () => {
     <main className={styles.loginContainer}>
       <section className={styles.loginCard}>
         <header className={styles.loginHeader}>
-          <img className={styles.loginLogo} src="/logo.svg" alt="logo" />
+          <img className={styles.loginLogo} src="./logo.svg" alt="logo" />
           <h1 className={styles.loginTitle}>Iniciar sesión</h1>
           <p className={styles.loginSubtitle}>
             Accede a tu cuenta para continuar
