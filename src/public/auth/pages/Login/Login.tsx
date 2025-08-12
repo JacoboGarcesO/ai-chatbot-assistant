@@ -1,7 +1,39 @@
+import { useState, useEffect } from 'react';
 import { Button, Input, GoogleButton } from '../../components';
+import { useAuth } from '../../../../shared/hooks/useAuth';
+import { useAuthRedirect } from '../../../../shared/hooks/useAuthRedirect';
 import styles from './Login.module.css';
 
 export const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
+
+  const { signInWithEmail, signInWithGoogle, loading, error, clearError } = useAuth();
+
+  useAuthRedirect();
+
+  useEffect(() => {
+    clearError();
+  }, [email, password, clearError]);
+
+  const handleEmailLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await signInWithEmail(email, password);
+    } catch (err) {
+      // Error ya manejado en el hook
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      await signInWithGoogle();
+    } catch (err) {
+      // Error ya manejado en el hook
+    }
+  };
+
   return (
     <main className={styles.loginContainer}>
       <section className={styles.loginCard}>
@@ -13,7 +45,13 @@ export const Login = () => {
           </p>
         </header>
 
-        <form className={styles.loginForm}>
+        {error && (
+          <div className={styles.loginError}>
+            {error}
+          </div>
+        )}
+
+        <form className={styles.loginForm} onSubmit={handleEmailLogin}>
           <Input
             type="email"
             label="Correo electrónico"
@@ -22,6 +60,9 @@ export const Login = () => {
             autoComplete="email"
             id="email"
             name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={loading}
           />
 
           <Input
@@ -32,11 +73,20 @@ export const Login = () => {
             autoComplete="current-password"
             id="password"
             name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={loading}
           />
 
           <fieldset className={styles.loginOptions}>
             <label className={styles.loginRememberMe}>
-              <input type="checkbox" className={styles.loginCheckbox} />
+              <input
+                type="checkbox"
+                className={styles.loginCheckbox}
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                disabled={loading}
+              />
               <span className={styles.loginCheckboxLabel}>Recordarme</span>
             </label>
             <a href="#" className={styles.loginForgotPassword}>
@@ -50,8 +100,9 @@ export const Login = () => {
             fullWidth
             size="lg"
             className={styles.loginButton}
+            disabled={loading}
           >
-            Iniciar sesión
+            {loading ? 'Iniciando sesión...' : 'Iniciar sesión'}
           </Button>
         </form>
 
@@ -59,7 +110,11 @@ export const Login = () => {
           <span className={styles.loginDividerText}>o</span>
         </div>
 
-        <GoogleButton className={styles.loginGoogleButton} />
+        <GoogleButton
+          className={styles.loginGoogleButton}
+          onClick={handleGoogleLogin}
+          disabled={loading}
+        />
       </section>
     </main>
   );

@@ -33,6 +33,70 @@
   transform: scale(1.05);
 }
 
+.headerUserMenu {
+  position: relative;
+}
+
+.headerDropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-lg);
+  min-width: 200px;
+  z-index: 50;
+  overflow: hidden;
+}
+
+.headerUserInfo {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.headerUserName {
+  display: block;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.headerUserEmail {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.headerDropdownDivider {
+  height: 1px;
+  background-color: var(--border-primary);
+}
+
+.headerDropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.headerDropdownItem:hover {
+  background-color: var(--bg-tertiary);
+}
+
+.headerDropdownIcon {
+  color: var(--text-secondary);
+}
+
 .headerDarkModeButton {
   background-color: transparent;
   border: none;

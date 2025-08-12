@@ -1,11 +1,11 @@
 import type { RouteObject } from 'react-router-dom';
 import { Login } from './auth/pages';
-
 import { Context } from './context/pages/context/Context';
 import { Conversations } from './conversations/pages/Conversations/Conversations';
 import { Reports } from './reports/pages/reports/Reports';
 import { Settings } from './settings/pages/settings/Settings';
 import { Layout } from '../shared/components';
+import { ProtectedRoute } from '../shared/components/ProtectedRoute';
 
 export const publicRoutes: RouteObject[] = [
   {
@@ -14,7 +14,11 @@ export const publicRoutes: RouteObject[] = [
   },
   {
     path: '',
-    Component: Layout,
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: '/conversations',

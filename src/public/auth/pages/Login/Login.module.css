@@ -62,6 +62,17 @@
   margin-bottom: 1rem;
 }
 
+.loginError {
+  background: var(--error-bg);
+  color: var(--error-text);
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--error-border);
+  text-align: center;
+}
+
 .loginOptions {
   display: flex;
   justify-content: space-between;

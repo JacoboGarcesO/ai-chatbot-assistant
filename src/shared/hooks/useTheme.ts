@@ -29,26 +29,28 @@ export const useTheme = () => {
     localStorage.setItem(THEME_STORAGE_KEY, state.isDarkMode ? 'dark' : 'light');
   }, [state.isDarkMode]);
 
-  // Cargar el tema guardado al inicializar
+  // Cargar el tema guardado al inicializar y aplicarlo inmediatamente
   useEffect(() => {
     const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    const root = document.documentElement;
+
     if (savedTheme !== null) {
       const isDarkMode = savedTheme === 'dark';
       if (isDarkMode !== state.isDarkMode) {
         setTheme(isDarkMode);
       }
-    }
-  }, []);
-
-  // Aplicar el estado inicial inmediatamente al montar
-  useEffect(() => {
-    const root = document.documentElement;
-    if (state.isDarkMode) {
+      // Aplicar inmediatamente
+      if (isDarkMode) {
+        root.classList.add('dark');
+        root.classList.remove('light');
+      } else {
+        root.classList.add('light');
+        root.classList.remove('dark');
+      }
+    } else {
+      // Si no hay tema guardado, aplicar el tema por defecto (oscuro)
       root.classList.add('dark');
       root.classList.remove('light');
-    } else {
-      root.classList.add('light');
-      root.classList.remove('dark');
     }
   }, []);
 

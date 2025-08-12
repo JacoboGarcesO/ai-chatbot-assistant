@@ -3,16 +3,7 @@ import type { UserState } from '../../types/State'
 import { UserRole, type User } from '../../types/User'
 
 export const userInitialState: UserState = {
-  // TODO: Remove this after testing
-  currentUser: {
-    id: '1',
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    role: UserRole.CUSTOMER,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    avatar: 'https://avatars.githubusercontent.com/u/155118605?v=4'
-  }
+  currentUser: null
 }
 
 export const userCases = {
