@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
-import { Button, Input, GoogleButton } from '../../components';
+import { useState } from 'react';
+import { Button } from '../../components/Button/Button';
+import { Input } from '../../components/Input/Input';
+import { GoogleButton } from '../../components/GoogleButton/GoogleButton';
 import { useAuth } from '../../../../shared/hooks/useAuth';
 import { useAuthRedirect } from '../../../../shared/hooks/useAuthRedirect';
 import styles from './Login.module.css';
@@ -9,13 +11,9 @@ export const Login = () => {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
 
-  const { signInWithEmail, signInWithGoogle, loading, error, clearError } = useAuth();
+  const { signInWithEmail, signInWithGoogle, loading } = useAuth();
 
   useAuthRedirect();
-
-  useEffect(() => {
-    clearError();
-  }, [email, password, clearError]);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,18 +24,12 @@ export const Login = () => {
     <main className={styles.loginContainer}>
       <section className={styles.loginCard}>
         <header className={styles.loginHeader}>
-          <img className={styles.loginLogo} src="./logo.svg" alt="logo" />
+          <img className={styles.loginLogo} src="/ai-chatbot-assistant/logo.svg" alt="logo" />
           <h1 className={styles.loginTitle}>Iniciar sesión</h1>
           <p className={styles.loginSubtitle}>
             Accede a tu cuenta para continuar
           </p>
         </header>
-
-        {error && (
-          <div className={styles.loginError}>
-            {error}
-          </div>
-        )}
 
         <form className={styles.loginForm} onSubmit={handleEmailLogin}>
           <Input

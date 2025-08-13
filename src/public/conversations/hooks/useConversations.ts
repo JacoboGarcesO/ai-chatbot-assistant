@@ -1,24 +1,23 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useAppContext } from '../../../core/state/AppContext';
+import { useApiErrorHandler } from '../../../shared/hooks/useApiErrorHandler';
 import { conversationsService } from '../../../core/services/conversations.service';
 import {
   setConversations,
   setLoading,
-  setError,
   setSearchTerm,
   setStatusFilter,
-  clearError
 } from '../../../core/state/conversations/actions';
 import type { Conversation } from '../../../core/types/Conversation';
 
 export const useConversations = () => {
   const { state, dispatch } = useAppContext();
-  const { conversations, loading, error, searchTerm, statusFilter } = state;
+  const { conversations, loading, searchTerm, statusFilter } = state;
+  const { handleApiError } = useApiErrorHandler();
 
   const fetchConversations = useCallback(async (search?: string, status?: string) => {
     try {
       dispatch(setLoading(true));
-      dispatch(clearError());
 
       let data: Conversation[];
 
@@ -34,12 +33,14 @@ export const useConversations = () => {
 
       dispatch(setConversations(data));
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch conversations';
-      dispatch(setError(errorMessage));
+      // Usar handleApiError de manera estable
+      if (handleApiError) {
+        handleApiError(err, 'useConversations.fetchConversations');
+      }
     } finally {
       dispatch(setLoading(false));
     }
-  }, [dispatch]);
+  }, [dispatch]); // Remover handleApiError de las dependencias
 
   const updateSearchTerm = useCallback((term: string) => {
     dispatch(setSearchTerm(term));
@@ -53,22 +54,24 @@ export const useConversations = () => {
     fetchConversations(searchTerm, statusFilter);
   }, [fetchConversations, searchTerm, statusFilter]);
 
+  // Estabilizar fetchConversations para evitar bucles infinitos
+  const stableFetchConversations = useMemo(() => fetchConversations, [dispatch]);
+
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      fetchConversations(searchTerm, statusFilter);
+      stableFetchConversations(searchTerm, statusFilter);
     }, 500);
 
     return () => clearTimeout(timeoutId);
-  }, [searchTerm, statusFilter, fetchConversations]);
+  }, [searchTerm, statusFilter, stableFetchConversations]);
 
   useEffect(() => {
-    fetchConversations();
-  }, [fetchConversations]);
+    stableFetchConversations();
+  }, [stableFetchConversations]);
 
   return {
     conversations,
     loading,
-    error,
     searchTerm,
     statusFilter,
     updateSearchTerm,

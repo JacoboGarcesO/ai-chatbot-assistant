@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import type { Conversation } from '../../../core/types/Conversation';
 
 export const useMessageInput = (
@@ -6,44 +6,45 @@ export const useMessageInput = (
   sendMessage: (content: string) => Promise<any>,
   sendAIMessage: (prompt: string, role: string) => Promise<any>
 ) => {
+  const [showAiInput, setShowAiInput] = useState(false);
+  const [messageInput, setMessageInput] = useState('');
+  const [aiInput, setAiInput] = useState('');
+
   const handleSendMessage = useCallback(async () => {
-    const input = document.querySelector('.messageInput') as HTMLInputElement;
-    if (!conversation || !input?.value.trim()) return;
+    if (!conversation || !messageInput.trim()) return;
 
     try {
-      await sendMessage(input.value.trim());
-      input.value = '';
+      await sendMessage(messageInput.trim());
+      setMessageInput('');
     } catch (error) {
       console.error('Error sending message:', error);
     }
-  }, [conversation, sendMessage]);
+  }, [conversation, sendMessage, messageInput]);
 
   const handleSendAIMessage = useCallback(async () => {
-    const input = document.querySelector('.aiInput') as HTMLInputElement;
-    if (!conversation || !input?.value.trim()) return;
+    if (!conversation || !aiInput.trim()) return;
 
     try {
-      await sendAIMessage(input.value.trim(), 'Asistente de atención al cliente');
-      input.value = '';
-      const aiInputContainer = document.querySelector('.aiInputContainer');
-      if (aiInputContainer) {
-        aiInputContainer.classList.remove('showAiInput');
-      }
+      await sendAIMessage(aiInput.trim(), 'Asistente de atención al cliente');
+      setAiInput('');
+      setShowAiInput(false);
     } catch (error) {
       console.error('Error sending AI message:', error);
     }
-  }, [conversation, sendAIMessage]);
+  }, [conversation, sendAIMessage, aiInput]);
 
   const toggleAiInput = useCallback(() => {
-    const aiInputContainer = document.querySelector('.aiInputContainer');
-    if (aiInputContainer) {
-      aiInputContainer.classList.toggle('showAiInput');
-    }
+    setShowAiInput(prev => !prev);
   }, []);
 
   return {
     handleSendMessage,
     handleSendAIMessage,
-    toggleAiInput
+    toggleAiInput,
+    showAiInput,
+    messageInput,
+    setMessageInput,
+    aiInput,
+    setAiInput
   };
 }; 

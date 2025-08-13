@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, type ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, useCallback, useMemo, type ReactNode } from 'react';
 import type { ApiError } from '../types/ApiError';
 
 interface ApiErrorState {
@@ -68,35 +68,36 @@ const ApiErrorContext = createContext<ApiErrorContextType | undefined>(undefined
 export const ApiErrorProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(apiErrorReducer, initialState);
 
-  const setError = (error: ApiError) => {
+  const setError = useCallback((error: ApiError) => {
     dispatch({ type: 'SET_ERROR', payload: error });
     dispatch({ type: 'ADD_TO_HISTORY', payload: error });
-  };
+  }, []);
 
-  const clearError = () => {
+  const clearError = useCallback(() => {
     dispatch({ type: 'CLEAR_ERROR' });
-  };
+  }, []);
 
-  const showNotification = () => {
+  const showNotification = useCallback(() => {
     dispatch({ type: 'SHOW_NOTIFICATION' });
-  };
+  }, []);
 
-  const hideNotification = () => {
+  const hideNotification = useCallback(() => {
     dispatch({ type: 'HIDE_NOTIFICATION' });
-  };
+  }, []);
 
-  const addToHistory = (error: ApiError) => {
+  const addToHistory = useCallback((error: ApiError) => {
     dispatch({ type: 'ADD_TO_HISTORY', payload: error });
-  };
+  }, []);
 
-  const value: ApiErrorContextType = {
+  // Estabilizar el objeto value para evitar recreaciones constantes
+  const value = useMemo<ApiErrorContextType>(() => ({
     state,
     setError,
     clearError,
     showNotification,
     hideNotification,
     addToHistory,
-  };
+  }), [state, setError, clearError, showNotification, hideNotification, addToHistory]);
 
   return (
     <ApiErrorContext.Provider value={value}>

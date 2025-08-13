@@ -22,7 +22,7 @@
 }
 
 .loginCard {
-  background: var(--bg-secondary-dark);
+  background: var(--bg-primary);
   border-radius: 1rem;
   box-shadow: var(--shadow-lg);
   padding: 2.5rem;

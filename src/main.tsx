@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { AppProvider } from './core/state/AppContext';
+import { ApiErrorProvider } from './core/state/ApiErrorContext';
 import './index.css';
 import { privateRoutes } from './private/routes';
 import { publicRoutes } from './public/routes';
@@ -27,7 +28,9 @@ const routes = createHashRouter([...publicRoutes, ...privateRoutes]);
 
 createRoot(document.getElementById('root')!)
   .render(
-    <AppProvider>
-      <RouterProvider router={routes} />
-    </AppProvider>
+    <ApiErrorProvider>
+      <AppProvider>
+        <RouterProvider router={routes} />
+      </AppProvider>
+    </ApiErrorProvider>
   );

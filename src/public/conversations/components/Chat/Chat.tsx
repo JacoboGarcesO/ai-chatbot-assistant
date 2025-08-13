@@ -24,7 +24,6 @@ export const Chat: React.FC<ChatProps> = ({ conversation }) => {
   const {
     messages,
     loading,
-    error,
     sendMessage,
     sendAIMessage
   } = useMessages(conversation?.phoneNumber);
@@ -40,7 +39,12 @@ export const Chat: React.FC<ChatProps> = ({ conversation }) => {
   const {
     handleSendMessage,
     handleSendAIMessage,
-    toggleAiInput
+    toggleAiInput,
+    showAiInput,
+    messageInput,
+    setMessageInput,
+    aiInput,
+    setAiInput
   } = useMessageInput(conversation, sendMessage, sendAIMessage);
 
   const {
@@ -69,12 +73,9 @@ export const Chat: React.FC<ChatProps> = ({ conversation }) => {
     <div className={`${styles.chat} ${isDarkMode ? 'dark' : ''}`}>
       <div className={styles.chatHeader}>
         <div className={styles.chatHeaderInfo}>
-          <h2 className={styles.chatHeaderTitle}>
+          <h2>
             {conversation.contactName || conversation.phoneNumber.replace('whatsapp:', '')}
           </h2>
-          <p className={styles.chatHeaderSubtitle}>
-            {conversation.phoneNumber.replace('whatsapp:', '')}
-          </p>
         </div>
         <div className={styles.chatHeaderActions}>
           <button
@@ -96,12 +97,6 @@ export const Chat: React.FC<ChatProps> = ({ conversation }) => {
         {loading && messages.length === 0 && (
           <div className={styles.loadingMessage}>
             Cargando mensajes...
-          </div>
-        )}
-
-        {error && (
-          <div className={styles.errorMessage}>
-            <p className={styles.errorMessageText}>{error}</p>
           </div>
         )}
 
@@ -153,13 +148,15 @@ export const Chat: React.FC<ChatProps> = ({ conversation }) => {
         </button>
       </div>
 
-      <div className={`${styles.aiInputContainer} ${styles.showAiInput}`}>
+      <div className={`${styles.aiInputContainer} ${showAiInput ? styles.showAiInput : ''}`}>
         <div className={styles.aiInputContent}>
           <Sparkles className={styles.aiInputIcon} />
           <input
             type="text"
             placeholder="Escribe un prompt para la IA..."
             className={`${styles.aiInput} gems-scrollbar`}
+            value={aiInput}
+            onChange={(e) => setAiInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSendAIMessage()}
           />
           <button
@@ -177,6 +174,8 @@ export const Chat: React.FC<ChatProps> = ({ conversation }) => {
             type="text"
             placeholder="Escribe un mensaje..."
             className={`${styles.messageInput} gems-scrollbar`}
+            value={messageInput}
+            onChange={(e) => setMessageInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
           />
           <button

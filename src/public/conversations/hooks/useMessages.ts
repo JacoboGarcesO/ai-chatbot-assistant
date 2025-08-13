@@ -1,37 +1,38 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useAppContext } from '../../../core/state/AppContext';
+import { useApiErrorHandler } from '../../../shared/hooks/useApiErrorHandler';
 import { messagesService } from '../../../core/services/messages.service';
 import {
   setMessages,
   setLoading,
-  setError,
   setCurrentCustomerId,
   addMessage,
   clearMessages,
-  clearError
 } from '../../../core/state/messages/actions';
 
 export const useMessages = (customerId?: string) => {
   const { state, dispatch } = useAppContext();
-  const { messages, loading, error, currentCustomerId } = state;
+  const { messages, loading, currentCustomerId } = state;
+  const { handleApiError } = useApiErrorHandler();
 
   const fetchMessages = useCallback(async () => {
     if (!customerId) return;
 
     try {
       dispatch(setLoading(true));
-      dispatch(clearError());
       dispatch(setCurrentCustomerId(customerId));
 
       const data = await messagesService.getMessages(customerId);
       dispatch(setMessages(data));
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch messages';
-      dispatch(setError(errorMessage));
+      // Usar handleApiError de manera estable
+      if (handleApiError) {
+        handleApiError(err, 'useMessages.fetchMessages');
+      }
     } finally {
       dispatch(setLoading(false));
     }
-  }, [customerId, dispatch]);
+  }, [customerId, dispatch]); // Remover handleApiError de las dependencias
 
   const sendMessage = useCallback(async (content: string) => {
     if (!customerId) throw new Error('No customer ID provided');
@@ -41,9 +42,13 @@ export const useMessages = (customerId?: string) => {
       dispatch(addMessage(newMessage));
       return newMessage;
     } catch (err) {
+      // Usar handleApiError de manera estable
+      if (handleApiError) {
+        handleApiError(err, 'useMessages.sendMessage');
+      }
       throw err instanceof Error ? err : new Error('Failed to send message');
     }
-  }, [customerId, dispatch]);
+  }, [customerId, dispatch]); // Remover handleApiError de las dependencias
 
   const sendAIMessage = useCallback(async (prompt: string, role: string) => {
     if (!customerId) throw new Error('No customer ID provided');
@@ -53,21 +58,27 @@ export const useMessages = (customerId?: string) => {
       dispatch(addMessage(newMessage));
       return newMessage;
     } catch (err) {
+      // Usar handleApiError de manera estable
+      if (handleApiError) {
+        handleApiError(err, 'useMessages.sendAIMessage');
+      }
       throw err instanceof Error ? err : new Error('Failed to send AI message');
     }
-  }, [customerId, dispatch]);
+  }, [customerId, dispatch]); // Remover handleApiError de las dependencias
+
+  // Estabilizar fetchMessages para evitar bucles infinitos
+  const stableFetchMessages = useMemo(() => fetchMessages, [customerId, dispatch]);
 
   useEffect(() => {
     if (customerId !== currentCustomerId) {
       dispatch(clearMessages());
     }
-    fetchMessages();
-  }, [customerId, currentCustomerId, fetchMessages, dispatch]);
+    stableFetchMessages();
+  }, [customerId, currentCustomerId, stableFetchMessages, dispatch]);
 
   return {
     messages,
     loading,
-    error,
     sendMessage,
     sendAIMessage,
     refetch: fetchMessages,
