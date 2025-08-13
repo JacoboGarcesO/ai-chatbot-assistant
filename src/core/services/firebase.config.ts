@@ -24,6 +24,5 @@ if (environment.isProduction) {
 
   if (missingKeys.length > 0) {
     console.error('❌ Firebase configuration missing:', missingKeys);
-    console.error('Please configure Firebase environment variables in GitHub Secrets');
   }
 } 

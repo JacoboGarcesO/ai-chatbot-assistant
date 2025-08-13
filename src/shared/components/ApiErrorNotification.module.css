@@ -1,0 +1,93 @@
+.apiErrorNotification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  max-width: 400px;
+  background: #fff;
+  border: 1px solid #e53e3e;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  animation: slideIn 0.3s ease-out;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.apiErrorHeader {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: #fed7d7;
+  border-bottom: 1px solid #e53e3e;
+  border-radius: 8px 8px 0 0;
+}
+
+.apiErrorIcon {
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+.apiErrorType {
+  font-weight: 600;
+  color: #c53030;
+  flex: 1;
+}
+
+.apiErrorCloseButton {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #c53030;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.apiErrorCloseButton:hover {
+  background-color: rgba(197, 48, 48, 0.1);
+}
+
+.apiErrorMessage {
+  padding: 16px;
+  color: #2d3748;
+  line-height: 1.5;
+}
+
+.apiErrorDetails {
+  padding: 0 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.apiErrorDetails small {
+  color: #718096;
+  font-size: 12px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .apiErrorNotification {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
+  }
+}

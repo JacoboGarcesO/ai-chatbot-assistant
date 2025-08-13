@@ -19,19 +19,7 @@ export const Login = () => {
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      await signInWithEmail(email, password);
-    } catch (err) {
-      // Error ya manejado en el hook
-    }
-  };
-
-  const handleGoogleLogin = async () => {
-    try {
-      await signInWithGoogle();
-    } catch (err) {
-      // Error ya manejado en el hook
-    }
+    await signInWithEmail(email, password);
   };
 
   return (
@@ -112,7 +100,7 @@ export const Login = () => {
 
         <GoogleButton
           className={styles.loginGoogleButton}
-          onClick={handleGoogleLogin}
+          onClick={signInWithGoogle}
           disabled={loading}
         />
       </section>

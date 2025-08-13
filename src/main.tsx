@@ -1,9 +1,9 @@
 import { createRoot } from 'react-dom/client';
-import './index.css';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
-import { publicRoutes } from './public/routes';
-import { privateRoutes } from './private/routes';
 import { AppProvider } from './core/state/AppContext';
+import './index.css';
+import { privateRoutes } from './private/routes';
+import { publicRoutes } from './public/routes';
 
 // Aplicar tema inmediatamente para evitar flash de tema incorrecto
 const applyThemeImmediately = () => {
