@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bot, ToggleLeft, ToggleRight } from 'lucide-react';
+import { Bot } from 'lucide-react';
 import { useBotStatus } from '../../hooks/useBotStatus';
 import styles from './BotToggle.module.css';
 
@@ -11,7 +11,6 @@ interface BotToggleProps {
 }
 
 export const BotToggle: React.FC<BotToggleProps> = ({
-  variant = 'bar',
   showIcon = true,
   showLabel = true,
   className = ''
@@ -22,8 +21,7 @@ export const BotToggle: React.FC<BotToggleProps> = ({
     await toggleBot(!botEnabled);
   };
 
-  if (variant === 'bar') {
-    return (
+  return (
       <div className={`${styles.botToggle} ${styles.botToggleBar} ${className}`}>
         {showIcon && (
           <Bot className={`${styles.botToggleIcon} ${botEnabled ? styles.botToggleIconActive : styles.botToggleIconInactive}`} />
@@ -42,25 +40,4 @@ export const BotToggle: React.FC<BotToggleProps> = ({
         </button>
       </div>
     );
-  }
-
-  return (
-    <div className={`${styles.botToggle} ${styles.botToggleChat} ${className}`}>
-      {showLabel && (
-        <span className={styles.botToggleChatLabel}>IA Auto</span>
-      )}
-      <button
-        onClick={handleToggle}
-        disabled={loading}
-        className={styles.botToggleChatButton}
-        title={`${botEnabled ? 'Desactivar' : 'Activar'} IA automática`}
-      >
-        {botEnabled ? (
-          <ToggleRight className={styles.botToggleChatIconActive} />
-        ) : (
-          <ToggleLeft className={styles.botToggleChatIconInactive} />
-        )}
-      </button>
-    </div>
-  );
 }; 

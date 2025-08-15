@@ -32,26 +32,32 @@ export const useChatScroll = (conversation: Conversation | null) => {
   }, [messages.length]);
 
   useEffect(() => {
-    if (messages.length > previousMessagesCount.current && previousMessagesCount.current > 0) {
-      if (Notification.permission === 'granted') {
-        const lastMessage = messages[messages.length - 1];
-        if (lastMessage && lastMessage.sender_type === 'customer') {
-          new Notification('Nuevo mensaje', {
-            body: `${conversation?.contactName || 'Cliente'}: ${lastMessage.content}`,
-            icon: '/logo1.png',
-            tag: 'new-message'
-          });
+    if (messages.length > previousMessagesCount.current) {
+      if (previousMessagesCount.current > 0) {
+        if (Notification.permission === 'granted') {
+          const lastMessage = messages[messages.length - 1];
+          if (lastMessage && lastMessage.sender_type === 'customer') {
+            new Notification('Nuevo mensaje', {
+              body: `${conversation?.contactName || 'Cliente'}: ${lastMessage.content}`,
+              icon: '/logo1.png',
+              tag: 'new-message'
+            });
+          }
         }
+
+        try {
+          const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+LyvmMcAzuN1fLNeSsFJH');
+          audio.play().catch(() => { });
+        } catch (e) { }
       }
 
-      try {
-        const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+LyvmMcAzuN1fLNeSsFJH');
-        audio.play().catch(() => { });
-      } catch (e) { }
+      setTimeout(() => {
+        scrollToBottomInstantly();
+      }, 100);
     }
 
     previousMessagesCount.current = messages.length;
-  }, [messages, conversation]);
+  }, [messages, conversation, scrollToBottomInstantly]);
 
   useEffect(() => {
     if (Notification.permission === 'default') {
@@ -64,4 +70,4 @@ export const useChatScroll = (conversation: Conversation | null) => {
     scrollToBottomInstantly,
     handleScroll
   };
-}; 
+};

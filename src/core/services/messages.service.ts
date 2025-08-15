@@ -16,7 +16,7 @@ export const messagesService = {
       return response.messages.map((msg: any) => ({
         id: msg._id,
         content: msg.text,
-        sender_type: msg.type === 'received' ? 'customer' : 'bot',
+        sender_type: msg.type === 'received' ? 'customer' : msg.metadata?.isAiGenerated ? 'bot' : 'agent',
         timestamp: msg.timestamp,
         status: msg.status || 'sent',
         isAiGenerated: msg.metadata?.isAiGenerated || false,
@@ -29,7 +29,7 @@ export const messagesService = {
   async sendMessage(customerId: string, content: string): Promise<Message> {
     try {
 
-      const response = await api.post(endpoints.messages.send(customerId), {
+      const response = await api.post(endpoints.messages.send, {
         to: customerId,
         message: content,
       });

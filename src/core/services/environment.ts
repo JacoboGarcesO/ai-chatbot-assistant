@@ -20,7 +20,7 @@ export const endpoints = {
   },
   messages: {
     get: (customerId: string) => `${environment.apiUrl}/api/messages/${customerId}`,
-    send: (customerId: string) => `${environment.apiUrl}/api/messages/${customerId}`,
+    send: `${environment.apiUrl}/api/send-message`,
     sendAI: (customerId: string) => `${environment.apiUrl}/api/messages/${customerId}/ai`,
   },
   bot: {

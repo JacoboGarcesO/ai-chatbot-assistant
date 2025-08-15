@@ -11,7 +11,7 @@
 }
 
 .layoutContent {
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   margin-top: 4rem;
   flex: 1;
   overflow-y: auto;

@@ -10,7 +10,7 @@
 .statusBar {
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border-primary);
-  padding: 0.5rem;
+  padding: 0.35rem 0.5rem;
   border-radius: 0.75rem;
   position: relative;
   z-index: 10;
@@ -99,7 +99,7 @@
   grid-template-columns: 300px 1fr;
   flex: 1;
   gap: 0.75rem;
-  padding-top: 0.75rem;
+  padding-top: 0.5rem;
   min-height: 0;
   position: relative;
   z-index: 5;

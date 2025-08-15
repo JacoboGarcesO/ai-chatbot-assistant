@@ -83,4 +83,4 @@ export const useMessages = (customerId?: string) => {
     sendAIMessage,
     refetch: fetchMessages,
   };
-}; 
+};

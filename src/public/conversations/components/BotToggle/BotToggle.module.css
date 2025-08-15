@@ -23,7 +23,6 @@
 }
 
 @keyframes pulse {
-
   0%,
   100% {
     transform: scale(1);
@@ -42,7 +41,7 @@
 }
 
 .botToggleButton {
-  padding: 0.5rem 1rem;
+  padding: 0.25rem 0.5rem;
   border: none;
   border-radius: 0.5rem;
   font-size: 0.75rem;
@@ -107,7 +106,6 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
   border-radius: 0.75rem;
   transition: all 0.2s ease;
 }
@@ -169,14 +167,4 @@
   width: 1.25rem;
   color: var(--text-muted);
   opacity: 0.7;
-}
-
-@media (min-width: 1024px) {
-  .botToggleChat {
-    padding: 0.625rem 1rem;
-  }
-
-  .botToggleChatLabel {
-    font-size: 0.8rem;
-  }
 }

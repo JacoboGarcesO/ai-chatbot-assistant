@@ -5,7 +5,7 @@
   position: relative;
   height: 100%;
   width: 100%;
-  border-radius: 0.375rem;
+  border-radius: 0.75rem;
   border: 1px solid var(--border-secondary);
   transition: all var(--transition-fast);
   overflow: hidden;
@@ -50,9 +50,7 @@
 .chatHeader {
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border-primary);
-  padding-inline: 0.5rem;
-  height: auto;
-  min-height: 3rem;
+  padding: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -60,17 +58,24 @@
 }
 
 .chatHeaderInfo h2 {
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 300;
   color: var(--text-primary);
-  margin: 0 0 0.125rem 0;
 }
 
-.chatHeaderInfo p {
-  font-size: 0.875rem;
-  color: var(--text-muted);
-  margin: 0;
-  opacity: 0.8;
+.chatHeaderInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+}
+
+.chatHeaderProfile {
+  height: 2rem;
+  width: 2rem;
+  object-fit: cover;
+  border-radius: 50%;
+
 }
 
 .chatHeaderActions {
@@ -83,7 +88,7 @@
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  padding: 0.375rem 0.5rem;
+  padding: 0.275rem 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
   background: var(--info);
@@ -132,15 +137,15 @@
   justify-content: flex-start;
 }
 
-.messageWrapperAgent {
+.messageWrapperAgent, .messageWrapperAI {
   justify-content: flex-end;
 }
 
 .message {
   max-width: 14rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 0.75rem;
+  padding: 0.25rem 0.5rem;
   position: relative;
+  min-width: 10rem;
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-fast);
 }
@@ -148,19 +153,56 @@
 .messageCustomer {
   background: var(--bg-secondary);
   color: var(--text-primary);
-  border: 1px solid var(--border-primary);
+  border-radius: 0.25rem;
 }
 
+.messageCustomer::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: -0.5rem;
+  width: 0;
+  height: 0;
+  border-top: 0.5rem solid var(--bg-secondary);
+  border-bottom: 0.5rem solid transparent;
+  border-right: 0.5rem solid var(--bg-secondary);
+  border-left: 0.5rem solid transparent;
+}
+
+
 .messageAI {
-  background: var(--info);
+  background: var(--brand-accent-secondary);
   color: var(--text-inverse);
-  border: 1px solid var(--info);
+  border: 1px solid var(--brand-accent-secondary);
+  border-radius: 0.25rem;
 }
 
 .messageAgent {
-  background: var(--brand-accent);
+  background: var(--info);
   color: var(--text-inverse);
-  border: 1px solid var(--brand-accent);
+  border: 1px solid var(--info);
+  border-radius: 0.25rem;
+}
+
+.messageAgent::after, .messageAI::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  right: -0.5rem;
+  width: 0;
+  height: 0;
+  border-bottom: 0.5rem solid transparent;
+  border-right: 0.5rem solid transparent;
+}
+
+.messageAI::after {
+  border-top: 0.5rem solid var(--brand-accent-secondary);
+  border-left: 0.5rem solid var(--brand-accent-secondary);
+}
+
+.messageAgent::after {
+  border-top: 0.5rem solid var(--info);
+  border-left: 0.5rem solid var(--info);
 }
 
 .messageHeader {
@@ -202,16 +244,37 @@
   word-wrap: break-word;
 }
 
-.messageFooter {
+.messageFooterAI, .messageFooter {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.375rem;
+  margin-top: 5px;
+  gap: 0.25rem;
 }
 
+.messageFooterAI {
+  justify-content: space-between;
+}
+
+.messageFooter {
+  justify-content: flex-end;
+}
+
+.messageFooterContent {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.messageFooterIcon {
+  height: 0.875rem;
+  width: 0.875rem;
+  color: #ff5ee0;
+}
+
+
 .messageTime {
-  font-size: 0.75rem;
-  opacity: 0.7;
+  font-size: 0.65rem;
+  opacity: 0.8;
   margin: 0;
   font-weight: 500;
 }
@@ -231,7 +294,7 @@
 .statusIconDelivered {
   height: 0.75rem;
   width: 0.75rem;
-  color: var(--text-muted);
+  color: var(--text-inverse);
 }
 
 .statusIconRead {
@@ -242,8 +305,8 @@
 
 .scrollButtonContainer {
   position: absolute;
-  bottom: 5rem;
-  right: 0.75rem;
+  top: 3.875rem;
+  right: 50%;
   z-index: 20;
 }
 
@@ -258,8 +321,8 @@
   opacity: 0.8;
   cursor: pointer;
   outline: none;
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -278,11 +341,9 @@
 }
 
 .aiInputContainer {
-  background: var(--bg-secondary);
+  background: #88077545;
   border-top: 1px solid var(--border-primary);
   padding: 0.5rem 0.75rem;
-  height: auto;
-  min-height: 2.75rem;
   position: relative;
   display: none;
 }
@@ -300,7 +361,7 @@
 .aiInputIcon {
   height: 0.875rem;
   width: 0.875rem;
-  color: var(--info);
+  color: var(--brand-accent-secondary);
 }
 
 .aiInput {
@@ -324,39 +385,6 @@
 .aiInput::placeholder {
   color: var(--text-muted);
   opacity: 0.6;
-}
-
-.aiInputSendButton {
-  padding: 0.375rem 0.5rem;
-  background: var(--info);
-  color: var(--text-inverse);
-  border: none;
-  border-radius: 0.375rem;
-  transition: all var(--transition-fast);
-  cursor: pointer;
-  outline: none;
-  font-weight: 500;
-  font-size: 0.875rem;
-}
-
-.aiInputSendButton:hover:not(:disabled) {
-  background: #2563eb;
-  transform: translateY(-1px);
-}
-
-.aiInputSendButton:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.aiInputSendButton:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.aiInputSendIcon {
-  height: 0.75rem;
-  width: 0.75rem;
 }
 
 .messageInputContainer {
@@ -398,8 +426,8 @@
 }
 
 .messageInputSendButton {
-  padding: 0.375rem 0.5rem;
-  background: var(--brand-accent);
+  padding: 0.25rem 0.5rem;
+  background: var(--brand-accent-secondary);
   color: var(--text-inverse);
   border: none;
   border-radius: 0.375rem;
@@ -407,12 +435,13 @@
   cursor: pointer;
   outline: none;
   font-weight: 500;
-  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .messageInputSendButton:hover:not(:disabled) {
   background: #be185d;
-  transform: translateY(-1px);
 }
 
 .messageInputSendButton:active:not(:disabled) {
@@ -426,8 +455,9 @@
 }
 
 .messageInputSendIcon {
-  height: 0.75rem;
-  width: 0.75rem;
+  height: 0.875rem;
+  width: 0.875rem;
+  color: #FFF;
 }
 
 /* Estilos específicos para modo oscuro */
@@ -477,14 +507,5 @@
 @media (min-width: 1024px) {
   .message {
     max-width: 18rem;
-  }
-
-  .messagesContainer {
-    padding: 1rem;
-  }
-
-  .aiInputContainer,
-  .messageInputContainer {
-    padding: 0.75rem 1rem;
   }
 }

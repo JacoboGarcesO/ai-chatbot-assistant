@@ -9,7 +9,6 @@ import { useChatScroll } from '../../hooks/useChatScroll';
 import { useMessageInput } from '../../hooks/useMessageInput';
 import { useMessageUI } from '../../hooks/useMessageUI';
 import { useTheme } from '../../../../shared/hooks/useTheme';
-import { BotToggle } from '../BotToggle/BotToggle';
 import styles from './Chat.module.css';
 import type { Conversation } from '../../../../core/types/Conversation';
 
@@ -20,6 +19,11 @@ interface ChatProps {
 export const Chat: React.FC<ChatProps> = ({ conversation }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { isDarkMode } = useTheme();
+  const messageClassesOptions = {
+    customer: styles.messageWrapperCustomer,
+    agent: styles.messageWrapperAgent,
+    bot: styles.messageWrapperAI,
+  }
 
   const {
     messages,
@@ -48,9 +52,7 @@ export const Chat: React.FC<ChatProps> = ({ conversation }) => {
   } = useMessageInput(conversation, sendMessage, sendAIMessage);
 
   const {
-    getMessageIcon,
     getStatusIcon,
-    getSenderLabel
   } = useMessageUI();
 
   if (!conversation) {
@@ -73,6 +75,7 @@ export const Chat: React.FC<ChatProps> = ({ conversation }) => {
     <div className={`${styles.chat} ${isDarkMode ? 'dark' : ''}`}>
       <div className={styles.chatHeader}>
         <div className={styles.chatHeaderInfo}>
+          <img className={styles.chatHeaderProfile} src='https://images.unsplash.com/photo-1511367461989-f85a21fda167?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGVyZmlsfGVufDB8fDB8fHww' alt={`Profile picture for ${conversation.contactName}`} />
           <h2>
             {conversation.contactName || conversation.phoneNumber.replace('whatsapp:', '')}
           </h2>
@@ -85,7 +88,6 @@ export const Chat: React.FC<ChatProps> = ({ conversation }) => {
             <Sparkles className={styles.aiButtonIcon} />
             <span>IA</span>
           </button>
-          <BotToggle variant="chat" />
         </div>
       </div>
 
@@ -103,8 +105,7 @@ export const Chat: React.FC<ChatProps> = ({ conversation }) => {
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`${styles.messageWrapper} ${message.sender_type === 'customer' ? styles.messageWrapperCustomer : styles.messageWrapperAgent
-              }`}
+            className={`${styles.messageWrapper} ${messageClassesOptions[message.sender_type]}`}
           >
             <div
               className={`${styles.message} ${message.sender_type === 'customer'
@@ -114,22 +115,19 @@ export const Chat: React.FC<ChatProps> = ({ conversation }) => {
                   : styles.messageAgent
                 }`}
             >
-              <div className={styles.messageHeader}>
-                {getMessageIcon(message.sender_type, message.isAiGenerated)}
-                <span className={styles.messageSender}>
-                  {getSenderLabel(message.sender_type, message.isAiGenerated)}
-                </span>
-              </div>
               <p className={styles.messageContent}>{message.content}</p>
-              <div className={styles.messageFooter}>
-                <p className={styles.messageTime}>
-                  {format(new Date(message.timestamp), 'HH:mm', { locale: enUS })}
-                </p>
-                {message.status && message.sender_type !== 'customer' && (
-                  <div className={styles.messageStatus}>
-                    {getStatusIcon(message.status)}
-                  </div>
-                )}
+              <div className={message.isAiGenerated ? styles.messageFooterAI : styles.messageFooter}>
+                {message.isAiGenerated && <Sparkles className={styles.messageFooterIcon} />}
+                <div className={styles.messageFooterContent}>
+                  <p className={styles.messageTime}>
+                    {format(new Date(message.timestamp), 'HH:mm', { locale: enUS })}
+                  </p>
+                  {message.status && message.sender_type !== 'customer' && (
+                    <div className={styles.messageStatus}>
+                      {getStatusIcon(message.status)}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -161,9 +159,9 @@ export const Chat: React.FC<ChatProps> = ({ conversation }) => {
           />
           <button
             onClick={handleSendAIMessage}
-            className={styles.aiInputSendButton}
+            className={styles.messageInputSendButton}
           >
-            <Send className={styles.aiInputSendIcon} />
+            <Send className={styles.messageInputSendIcon} />
           </button>
         </div>
       </div>
@@ -188,4 +186,4 @@ export const Chat: React.FC<ChatProps> = ({ conversation }) => {
       </div>
     </div>
   );
-}; 
+};
